@@ -1,0 +1,12 @@
+Name: StatisticsHS
+Version: 1.0
+Cabal-Version: >= 1.2
+Build-Type: Simple
+License: MIT
+License-File: LICENSE.txt
+Author: Braden Walters
+Category: Math
+Synopsis: Some statistics functions
+
+Library
+  Build-Depends: base
