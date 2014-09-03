@@ -1,7 +1,7 @@
 -- Copyright (C) 2014 Braden Walters
 -- This file is licensed under the MIT Expat License. See LICENSE.txt.
 
-module Meoblast001.Statistics
+module Math.StatisticsHS
 ( mean
 , trimmedMean
 , trimmedMean1
