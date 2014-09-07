@@ -15,6 +15,7 @@ module Math.StatisticsHS
 , upperFourth
 , fourthSpread
 , outliers
+, choose
 ) where
 
 import qualified Data.List as List
@@ -84,3 +85,12 @@ outliers list strength = let lower = lowerFourth list
                              low_cutoff = lower - strength * spread
                              high_cutoff = upper + strength * spread
                          in filter (\x -> x < low_cutoff && x > high_cutoff) list
+
+factorial :: (Integral a) => a -> a
+factorial 0 = 1
+factorial x = x * factorial (x - 1)
+
+choose :: (Integral a, Fractional b) => a -> a -> b
+choose n k = let numerator = factorial n
+                 denominator = factorial (n - k) * factorial k
+             in fromIntegral numerator / fromIntegral denominator
