@@ -94,3 +94,8 @@ choose :: (Integral a, Fractional b) => a -> a -> b
 choose n k = let numerator = factorial n
                  denominator = factorial (n - k) * factorial k
              in fromIntegral numerator / fromIntegral denominator
+
+permutation :: (Integral a, Fractional b) => a -> a -> b
+permutation k n = let numerator = factorial n
+                      denominator = factorial (n - k)
+                  in fromIntegral numerator / fromIntegral denominator
