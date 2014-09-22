@@ -16,6 +16,9 @@ module Math.StatisticsHS
 , fourthSpread
 , outliers
 , choose
+, expectedValue
+, expectedValue1
+, randomVariableVariance
 ) where
 
 import qualified Data.List as List
@@ -99,3 +102,16 @@ permutation :: (Integral a, Fractional b) => a -> a -> b
 permutation k n = let numerator = factorial n
                       denominator = factorial (n - k)
                   in fromIntegral numerator / fromIntegral denominator
+
+expectedValue :: (Fractional a) => (a -> a) -> [a] -> [a] -> a
+expectedValue f rand_vars probs =
+  foldl1 (+) $ zipWith (\r_var prob -> f r_var * prob) rand_vars probs
+
+expectedValue1 :: (Fractional a) => [a] -> [a] -> a
+expectedValue1 = expectedValue (\x -> x)
+
+randomVariableVariance :: (Fractional a) => [a] -> [a] -> a
+randomVariableVariance rand_vars probs =
+  let ev = expectedValue1 rand_vars probs
+  in foldl1 (+) $ zipWith (\r_var prob -> (r_var - ev) ^ 2 * prob)
+                          rand_vars probs
