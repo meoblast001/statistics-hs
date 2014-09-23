@@ -19,6 +19,7 @@ module Math.StatisticsHS
 , expectedValue
 , expectedValue1
 , randomVariableVariance
+, binomialProbability
 ) where
 
 import qualified Data.List as List
@@ -115,3 +116,8 @@ randomVariableVariance rand_vars probs =
   let ev = expectedValue1 rand_vars probs
   in foldl1 (+) $ zipWith (\r_var prob -> (r_var - ev) ^ 2 * prob)
                           rand_vars probs
+
+binomialProbability :: (Integral a, Fractional b) => a -> b -> a -> b
+binomialProbability trials prob_success successes =
+  (trials `choose` successes) * prob_success ^ successes *
+  (1 - prob_success) ^ (trials - successes)
