@@ -20,6 +20,8 @@ module Math.StatisticsHS
 , expectedValue1
 , randomVariableVariance
 , binomialProbability
+, negativeBinomialDistribution
+, negativeBinomialDistributionMean
 , hypergeometricProbability
 , hypergeometricMean
 , hypergeometricVariance
@@ -135,6 +137,16 @@ binomialProbability :: (Integral a, Fractional b) => a -> b -> a -> b
 binomialProbability trials prob_success successes =
   (trials `choose` successes) * prob_success ^ successes *
   (1 - prob_success) ^ (trials - successes)
+
+negativeBinomialDistribution :: (Integral a, Fractional b) => a -> b -> a -> b
+negativeBinomialDistribution successes success_prob failures =
+  ((failures + successes - 1) `choose` (successes - 1)) *
+  success_prob ^ successes * (1 - success_prob) ^ failures
+
+negativeBinomialDistributionMean :: (Integral a, Fractional b) => a -> b -> b
+negativeBinomialDistributionMean success_total success_prob =
+  let success_total_n = fromIntegral success_total
+  in (success_total_n * (1 - success_prob)) / success_prob
 
 hypergeometricProbability :: (Integral a, Fractional b) => a -> a -> a -> a -> b
 hypergeometricProbability total success_total selected successes =
