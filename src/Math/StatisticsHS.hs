@@ -20,6 +20,9 @@ module Math.StatisticsHS
 , expectedValue1
 , randomVariableVariance
 , binomialProbability
+, hypergeometricProbability
+, hypergeometricMean
+, hypergeometricVariance
 ) where
 
 import qualified Data.List as List
@@ -132,3 +135,25 @@ binomialProbability :: (Integral a, Fractional b) => a -> b -> a -> b
 binomialProbability trials prob_success successes =
   (trials `choose` successes) * prob_success ^ successes *
   (1 - prob_success) ^ (trials - successes)
+
+hypergeometricProbability :: (Integral a, Fractional b) => a -> a -> a -> a -> b
+hypergeometricProbability total success_total selected successes =
+  let numerator = (success_total `choose` successes) *
+                  ((total - success_total) `choose` (selected - successes))
+      denominator = total `choose` selected
+  in numerator / denominator
+
+hypergeometricMean :: (Integral a, Fractional b) => a -> a -> a -> b
+hypergeometricMean total success_total selected =
+  let total_n = fromIntegral total
+      success_total_n = fromIntegral success_total
+      selected_n = fromIntegral selected
+  in selected_n * (success_total_n / total_n)
+
+hypergeometricVariance :: (Integral a, Fractional b) => a -> a -> a -> b
+hypergeometricVariance total success_total selected =
+  let total_n = fromIntegral total
+      success_total_n = fromIntegral success_total
+      selected_n = fromIntegral selected
+  in (success_total_n - selected_n) / (success_total_n - 1) * selected_n *
+      success_total_n / total_n * 1 - (success_total_n / total_n)
