@@ -25,6 +25,7 @@ module Math.StatisticsHS
 , hypergeometricProbability
 , hypergeometricMean
 , hypergeometricVariance
+, poissonProbability
 ) where
 
 import qualified Data.List as List
@@ -169,3 +170,10 @@ hypergeometricVariance total success_total selected =
       selected_n = fromIntegral selected
   in (success_total_n - selected_n) / (success_total_n - 1) * selected_n *
       success_total_n / total_n * 1 - (success_total_n / total_n)
+
+poissonProbability :: (Integral a, Floating b) => a -> a -> b
+poissonProbability dist_mean success_total =
+  let e = exp 1
+      dist_mean_n = fromIntegral dist_mean
+  in (dist_mean_n ^ success_total) /
+     (e ^ dist_mean * (fromIntegral $ factorial success_total))
